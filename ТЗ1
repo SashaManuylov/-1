@@ -1,0 +1,15 @@
+#!/bin/bash
+first_dir=$1
+second_dir=$2
+find "$first_dir" -type f | while read file; do
+    a=$(basename "$file")
+    if [ -f "${second_dir}/${a}" ]; then
+        i=1
+        while [ -f "${second_dir}/${a}.${i}" ]; do
+            i=$((i+1))
+        done
+        cp "$file" "${second_dir}/${a}.${i}"
+    else
+        cp "$file" "$second_dir"
+    fi
+done
